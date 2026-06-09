@@ -1,0 +1,33 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Start-Sleep -Seconds 5; try { $r = Invoke-WebRequest -Uri \"http://localhost:5173\" -TimeoutSec 5 -UseBasicParsing; \"Status: $\\($r.StatusCode\\)\" } catch { \"Servidor ainda não respondeu: $_\" })",
+      "PowerShell(try { $r = Invoke-WebRequest -Uri \"http://localhost:5173\" -TimeoutSec 4 -UseBasicParsing; \"OK $\\($r.StatusCode\\)\" } catch { \"Offline — reiniciando...\"; Start-Process -FilePath \"cmd.exe\" -ArgumentList \"/c cd /d C:\\\\Users\\\\Hudson\\\\BlackDog\\\\tempodeaprender-page && npm run dev\" -WindowStyle Normal })",
+      "PowerShell(Start-Sleep -Seconds 5; try { $r = Invoke-WebRequest -Uri \"http://localhost:5173\" -TimeoutSec 5 -UseBasicParsing; \"OK $\\($r.StatusCode\\)\" } catch { \"Ainda offline: $_\" })",
+      "PowerShell(Start-Process \"ms-settings:defaultapps\")",
+      "PowerShell(try { $r = Invoke-WebRequest -Uri \"http://localhost:5173\" -TimeoutSec 4 -UseBasicParsing; \"OK $\\($r.StatusCode\\)\" } catch { \"Offline\" })",
+      "PowerShell($r = Invoke-WebRequest -Uri \"http://localhost:5173\" -TimeoutSec 5 -UseBasicParsing; $r.Content.Substring\\(0, 500\\))",
+      "PowerShell(Get-Process -Name \"node\" -ErrorAction SilentlyContinue)",
+      "PowerShell(Stop-Process -Force)",
+      "PowerShell(\"Processos node encerrados\")",
+      "PowerShell(Start-Process -FilePath \"cmd.exe\" -ArgumentList \"/c cd /d C:\\\\Users\\\\Hudson\\\\BlackDog\\\\tempodeaprender-page && npx vite\" -WindowStyle Normal)",
+      "PowerShell(Start-Sleep -Seconds 5; try { $r = Invoke-WebRequest -Uri \"http://localhost:5173\" -TimeoutSec 5 -UseBasicParsing; \"Servidor OK - Status $\\($r.StatusCode\\)\" } catch { \"Ainda iniciando...\" })",
+      "PowerShell(Start-Process \"chrome.exe\" -ArgumentList \"http://localhost:5173\")",
+      "WebFetch(domain:api.pexels.com)",
+      "WebSearch",
+      "WebFetch(domain:unsplash.com)",
+      "WebFetch(domain:images.unsplash.com)",
+      "Bash(git init *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git commit *)",
+      "Bash(gh auth *)",
+      "PowerShell(gh auth status 2>&1)",
+      "PowerShell(winget install --id GitHub.cli --silent --accept-source-agreements --accept-package-agreements 2>&1)",
+      "PowerShell($env:Path = [System.Environment]::GetEnvironmentVariable\\(\"Path\",\"Machine\"\\) + \";\" + [System.Environment]::GetEnvironmentVariable\\(\"Path\",\"User\"\\); gh --version)",
+      "PowerShell($env:Path = [System.Environment]::GetEnvironmentVariable\\(\"Path\",\"Machine\"\\) + \";\" + [System.Environment]::GetEnvironmentVariable\\(\"Path\",\"User\"\\); Start-Process -FilePath \"cmd.exe\" -ArgumentList \"/c gh auth login\" -WindowStyle Normal)",
+      "PowerShell($env:Path = [System.Environment]::GetEnvironmentVariable\\(\"Path\",\"Machine\"\\) + \";\" + [System.Environment]::GetEnvironmentVariable\\(\"Path\",\"User\"\\); gh auth status)",
+      "PowerShell($env:Path = [System.Environment]::GetEnvironmentVariable\\(\"Path\",\"Machine\"\\) + \";\" + [System.Environment]::GetEnvironmentVariable\\(\"Path\",\"User\"\\); Set-Location \"C:\\\\Users\\\\Hudson\\\\BlackDog\\\\tempodeaprender-page\"; gh repo create tempodeaprender-page --public --description \"Site institucional da Escola Tempo de Aprender — Escada/PE\" --source . --remote origin --push 2>&1)"
+    ]
+  }
+}
