@@ -123,9 +123,14 @@ export default function Footer() {
 
       {/* Barra inferior */}
       <div className="border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-white/70">
-          <p>&copy; {new Date().getFullYear()} Escola Tempo de Aprender. Todos os direitos reservados.</p>
-          <p>Escada — Pernambuco</p>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-white/70">
+          <p className="text-center md:text-left">&copy; {new Date().getFullYear()} Escola Tempo de Aprender. Todos os direitos reservados.</p>
+          <div className="flex flex-col md:flex-row items-center gap-2 md:gap-6">
+            <p>Escada — Pernambuco</p>
+            <p className="flex items-center gap-1.5 opacity-80 hover:opacity-100 transition-opacity">
+              Feito com 🤍 por <a href="https://www.blackdogbr.com/" target="_blank" rel="noopener noreferrer" className="font-bold text-white hover:text-brand-yellow transition-colors underline decoration-white/30 underline-offset-2 hover:decoration-brand-yellow">Black Dog Studio</a>
+            </p>
+          </div>
         </div>
       </div>
     </footer>
