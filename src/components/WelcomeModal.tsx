@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { IconClose, IconArrowRight, IconSport, IconBook, IconStar, IconHeart } from './icons'
 
 type ThemeType = 'copa' | 'matriculas' | 'festa-junina' | 'dia-criancas'
@@ -89,15 +89,21 @@ export default function WelcomeModal() {
 
   const theme = THEMES[ACTIVE_THEME]
 
-  /* Mostrar após 900ms a cada carregamento de página */
+  const location = useLocation()
+  const isHome = location.pathname === '/'
+
+  /* Mostrar após 900ms a cada carregamento de página (apenas na home e apenas 1 vez por sessão) */
   useEffect(() => {
+    if (!isHome || sessionStorage.getItem('welcome_modal_seen')) return
+
     const timer = setTimeout(() => {
       setRendered(true)
       /* Dois frames para garantir que a transição CSS dispare após o mount */
       requestAnimationFrame(() => requestAnimationFrame(() => setVisible(true)))
+      sessionStorage.setItem('welcome_modal_seen', 'true')
     }, 900)
     return () => clearTimeout(timer)
-  }, [])
+  }, [isHome])
 
   /* Focar o dialog ao abrir */
   useEffect(() => {
@@ -148,79 +154,73 @@ export default function WelcomeModal() {
         aria-modal="true"
         aria-labelledby="modal-title"
         tabIndex={-1}
-        className="relative z-10 w-full max-w-md rounded-3xl overflow-hidden shadow-2xl outline-none"
+        className="relative z-10 w-full max-w-sm sm:max-w-md bg-white outline-none"
         style={{
-          transform: visible ? 'scale(1) translateY(0)' : 'scale(0.94) translateY(24px)',
-          transition: 'transform 0.35s cubic-bezier(0.16, 1, 0.3, 1)',
+          borderRadius: '40px 40px 10px 40px', // Formato mais orgânico e lúdico
+          boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.4), 0 0 40px rgba(50, 130, 246, 0.2)',
+          transform: visible ? 'scale(1) translateY(0)' : 'scale(0.8) translateY(40px)',
+          transition: 'transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)', // Efeito elástico (bouncy)
         }}
       >
-        {/* Botão fechar */}
+        {/* Botão fechar orgânico */}
         <button
           type="button"
           onClick={dismiss}
           aria-label="Fechar banner"
-          className="absolute top-3 right-3 z-20 tap-target w-9 h-9 flex items-center justify-center rounded-full bg-black/40 text-white hover:bg-black/60 transition-colors"
+          className="absolute top-4 right-4 z-20 tap-target w-10 h-10 flex items-center justify-center rounded-full bg-white text-brand-navy shadow-lg hover:bg-brand-red hover:text-white hover:scale-110 hover:-rotate-12 transition-all duration-300"
         >
-          <IconClose className="w-4 h-4" />
+          <IconClose className="w-5 h-5" />
         </button>
 
-        {/* Imagem do tema */}
-        <div className="relative h-56 overflow-hidden">
+        {/* Imagem do tema com corte ondulado / curvo */}
+        <div className="relative h-60 overflow-hidden" style={{ borderRadius: '40px 40px 40px 0' }}>
           <img
             src={theme.imageSrc}
             alt={theme.imageAlt}
             className="w-full h-full object-cover"
             loading="eager"
           />
-          {/* Gradiente sobre a imagem */}
+          {/* Gradiente suave */}
           <div
             aria-hidden="true"
-            className="absolute inset-0 bg-gradient-to-t from-brand-navy/92 via-brand-navy/35 to-transparent"
+            className="absolute inset-0 bg-gradient-to-t from-brand-navy via-brand-navy/30 to-transparent opacity-90"
           />
 
           {/* Badge + título sobre a imagem */}
-          <div className="absolute bottom-5 left-5 right-12">
-            <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-white text-xs font-display font-bold uppercase tracking-wide ${theme.badgeColor}`}>
-              <BadgeIcon className="w-3.5 h-3.5" aria-hidden="true" />
+          <div className="absolute bottom-6 left-6 right-10">
+            <span className={`inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-white text-xs font-display font-black uppercase tracking-widest shadow-md ${theme.badgeColor}`}>
+              <BadgeIcon className="w-4 h-4" aria-hidden="true" />
               {theme.badgeText}
             </span>
             <h2
               id="modal-title"
-              className="mt-2 font-display font-extrabold text-xl sm:text-2xl text-white leading-snug"
+              className="mt-3 font-display font-black text-3xl text-white leading-tight drop-shadow-sm"
             >
               {theme.title}
             </h2>
           </div>
         </div>
 
-        {/* Corpo */}
-        <div className="bg-white px-6 pt-5 pb-6">
-          {/* Faixa do uniforme decorativa */}
-          <div aria-hidden="true" className="flex h-0.5 mb-5 -mx-6">
-            <span className="flex-[3] bg-brand-sky" />
-            <span className="flex-[2] bg-brand-navy" />
-            <span className="flex-[1] bg-brand-green" />
-            <span className="flex-[1] bg-brand-orange" />
-          </div>
-
-          <p className="text-sm text-brand-gray-mid leading-relaxed">
+        {/* Corpo super lúdico */}
+        <div className="px-6 pt-6 pb-8">
+          <p className="text-base text-brand-gray-dark leading-relaxed font-medium">
             {theme.body}
           </p>
 
-          <div className="mt-5 flex flex-col gap-2">
+          <div className="mt-8 flex flex-col gap-3">
             <Link
               to="/contato"
               onClick={dismiss}
-              className="tap-target flex items-center justify-center gap-2 px-6 rounded-xl bg-brand-sky-mid text-white font-display font-bold text-sm hover:bg-brand-navy transition-colors shadow-md"
+              className="tap-target flex items-center justify-center gap-2 px-6 py-4 rounded-full bg-brand-orange text-brand-navy font-display font-black text-lg hover:brightness-110 transition-all shadow-[0_6px_0_rgba(200,60,40,1)] hover:translate-y-1 hover:shadow-[0_2px_0_rgba(200,60,40,1)] active:translate-y-1.5 active:shadow-none"
             >
-              {theme.buttonText} <IconArrowRight className="w-4 h-4" />
+              {theme.buttonText} <IconArrowRight className="w-6 h-6 animate-pulse" />
             </Link>
             <button
               type="button"
               onClick={dismiss}
-              className="tap-target text-sm text-brand-gray-mid hover:text-brand-navy transition-colors font-display"
+              className="tap-target mt-2 text-sm text-brand-gray-mid hover:text-brand-navy transition-colors font-bold font-display uppercase tracking-wider"
             >
-              Agora não
+              Agora não, obrigado
             </button>
           </div>
         </div>

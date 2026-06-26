@@ -69,8 +69,8 @@ export default function Hero() {
         className="relative min-h-screen flex items-center overflow-hidden pt-28 pb-32 bg-gradient-to-br from-[#BBE0FC] via-[#D8EEFD] to-[#EDF6FD]"
       >
         {/* Elemento de fundo fluido esquerdo */}
-        <div 
-          aria-hidden="true" 
+        <div
+          aria-hidden="true"
           className="absolute left-[-10%] top-[20%] w-[40%] h-[60%] bg-[#BEE3FC]/40 blur-3xl rounded-full pointer-events-none"
         />
 
@@ -85,10 +85,10 @@ export default function Hero() {
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
           <div className="grid lg:grid-cols-12 gap-12 items-center">
-            
+
             {/* Conteúdo Esquerdo */}
             <div className="lg:col-span-5 text-left">
-              
+
               {/* Badge matrícula */}
               <span
                 className={[
@@ -186,10 +186,10 @@ export default function Hero() {
             {/* Conteúdo Direito - Foto Curvada e Doodles */}
             <div className="lg:col-span-7 relative flex justify-center w-full">
               <div className="relative w-full max-w-[540px] aspect-[4/3] sm:aspect-square">
-                
+
                 {/* Moldura de Fundo Ondulada do Recorte */}
-                <div 
-                  aria-hidden="true" 
+                <div
+                  aria-hidden="true"
                   className={[
                     'absolute inset-0 bg-[#A2D5FA]/30 rounded-[45%_55%_60%_40%_/_50%_40%_60%_50%] transition-transform duration-[1.4s] scale-105 pointer-events-none z-0',
                     entered ? 'rotate-3' : 'rotate-0',
@@ -207,8 +207,8 @@ export default function Hero() {
                   style={{ transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}
                 >
                   <img
-                    src="/hero_teacher_parent.png"
-                    alt="Coordenadora pedagógica sorridente conversando com uma mãe"
+                    src="/galeria/SJ02HOME.jpeg"
+                    alt="Família aproveitando a festa junina na Escola Tempo de Aprender"
                     className="w-full h-full object-cover transition-transform duration-[1.5s] hover:scale-105"
                     loading="eager"
                   />
@@ -229,25 +229,26 @@ export default function Hero() {
                   </svg>
                 </div>
 
-                {/* DOODLE: Avião de Papel com Rastro */}
-                <div aria-hidden="true" className="absolute top-[20%] left-[-30px] text-brand-sky/60 w-28 h-28 pointer-events-none hidden sm:block z-20">
-                  <svg viewBox="0 0 120 120" fill="none" className="w-full h-full">
-                    <path
-                      d="M10 100 Q40 50 60 70 T100 30"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                      strokeDasharray="6 6"
-                      fill="none"
-                    />
-                    <path
-                      d="M93 25 L108 30 L98 42 Z"
-                      fill="currentColor"
-                    />
+                {/* DOODLE: Bola de Futebol (Copa 2026) */}
+                <div aria-hidden="true" className="absolute top-[25%] left-[-35px] text-[#3282F6] w-16 h-16 pointer-events-none hidden sm:block z-20 animate-[spin_15s_linear_infinite]">
+                  <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="4" strokeLinejoin="round">
+                    <circle cx="50" cy="50" r="45" fill="white" />
+                    <path d="M 50 25 L 32 38 L 38 60 L 62 60 L 68 38 Z" fill="currentColor" />
+                    <path d="M 50 25 L 50 5" />
+                    <path d="M 32 38 L 12 30" />
+                    <path d="M 68 38 L 88 30" />
+                    <path d="M 38 60 L 25 80" />
+                    <path d="M 62 60 L 75 80" />
+                    <path d="M 12 30 A 45 45 0 0 0 25 80" />
+                    <path d="M 88 30 A 45 45 0 0 1 75 80" />
+                    <path d="M 50 5 A 45 45 0 0 0 12 30" />
+                    <path d="M 50 5 A 45 45 0 0 1 88 30" />
+                    <path d="M 25 80 A 45 45 0 0 0 75 80" />
                   </svg>
                 </div>
 
                 {/* DOODLE: Estrelinhas Lúdicas */}
-                <div aria-hidden="true" className="absolute bottom-[10%] left-[-15px] text-[#3282F6] w-6 h-6 pointer-events-none animate-pulse z-20">
+                <div aria-hidden="true" className="absolute bottom-[10%] left-[-15px] text-brand-green w-6 h-6 pointer-events-none animate-pulse z-20">
                   <svg viewBox="0 0 100 100" fill="currentColor">
                     <path d="M50 5L62 38H97L69 58L80 95L50 73L20 95L31 58L3 38H38L50 5Z" />
                   </svg>
@@ -258,10 +259,15 @@ export default function Hero() {
                   </svg>
                 </div>
 
-                {/* DOODLE: Nuvem */}
-                <div aria-hidden="true" className="absolute bottom-[5%] right-[-15px] text-white/80 w-16 h-10 pointer-events-none hidden sm:block z-20">
-                  <svg viewBox="0 0 100 60" fill="currentColor">
-                    <path d="M20 50 C 20 40, 30 30, 45 35 C 55 25, 75 25, 80 40 C 90 40, 95 48, 90 55 C 85 60, 15 60, 20 50 Z" />
+                {/* DOODLE: Taça da Copa 2026 */}
+                <div aria-hidden="true" className="absolute bottom-[5%] right-[-15px] text-brand-yellow w-14 h-16 pointer-events-none hidden sm:block z-20 hover:scale-110 transition-transform">
+                  <svg viewBox="0 0 100 100" fill="currentColor">
+                    <rect x="30" y="85" width="40" height="10" rx="3" />
+                    <rect x="40" y="65" width="20" height="20" />
+                    <path d="M 20 20 C 20 60, 80 60, 80 20 Z" />
+                    <path d="M 20 25 C 0 25, 0 50, 30 45" fill="none" stroke="currentColor" strokeWidth="6" strokeLinecap="round" />
+                    <path d="M 80 25 C 100 25, 100 50, 70 45" fill="none" stroke="currentColor" strokeWidth="6" strokeLinecap="round" />
+                    <path d="M 50 25 L 53 32 L 60 32 L 55 37 L 57 44 L 50 40 L 43 44 L 45 37 L 40 32 L 47 32 Z" fill="white" />
                   </svg>
                 </div>
 
@@ -284,8 +290,8 @@ export default function Hero() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 divide-y lg:divide-y-0 lg:divide-x divide-brand-sky-light/50">
             {FEATURES.map(({ icon, title, description }, index) => (
-              <div 
-                key={title} 
+              <div
+                key={title}
                 className={[
                   'flex flex-col items-center text-center p-4 transition-all duration-500 hover:scale-[1.02]',
                   index > 0 ? 'pt-8 sm:pt-4 lg:pt-4' : ''

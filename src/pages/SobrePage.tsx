@@ -18,38 +18,38 @@ interface TimelineItem {
 }
 
 const TIMELINE: TimelineItem[] = [
-  { 
-    year: '2003', 
-    title: 'Fundação', 
-    text: 'A Escola Tempo de Aprender abre suas portas em Escada-PE com a missão de transformar vidas através da educação.', 
-    colorBg: 'bg-brand-sky', 
+  {
+    year: '2003',
+    title: 'Fundação',
+    text: 'A Escola Tempo de Aprender abre suas portas em Escada-PE com a missão de transformar vidas através da educação.',
+    colorBg: 'bg-brand-sky',
     colorText: 'text-brand-sky-mid',
     photo: 'https://images.unsplash.com/photo-1577896851231-70ef18881754?w=800&h=400&q=85&auto=format&fit=crop',
     expandedText: 'Tudo começou em uma pequena casa com apenas duas turmas. Desde o primeiro dia, o foco sempre foi criar um ambiente familiar, onde as crianças pudessem aprender brincando com total acolhimento e respeito ao tempo de cada uma.'
   },
-  { 
-    year: '2010', 
-    title: 'Expansão', 
-    text: 'Ampliação do espaço físico e adoção de metodologia ativa, incorporando atividades lúdicas ao currículo.', 
-    colorBg: 'bg-brand-orange', 
+  {
+    year: '2010',
+    title: 'Expansão',
+    text: 'Ampliação do espaço físico e adoção de metodologia ativa, incorporando atividades lúdicas ao currículo.',
+    colorBg: 'bg-brand-orange',
     colorText: 'text-brand-orange',
     photo: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&h=400&q=85&auto=format&fit=crop',
     expandedText: 'Construímos novas salas de aula, implementamos uma quadra e um parquinho mais amplo. O currículo foi modernizado para acompanhar as novas diretrizes da educação infantil, priorizando projetos que instigam a curiosidade científica e artística dos alunos.'
   },
-  { 
-    year: '2018', 
-    title: 'Inclusão', 
-    text: 'Programa de inclusão fortalecido com ações no Abril Azul e acolhimento à diversidade em todas as turmas.', 
-    colorBg: 'bg-brand-green', 
+  {
+    year: '2018',
+    title: 'Inclusão',
+    text: 'Programa de inclusão fortalecido com ações no Abril Azul e acolhimento à diversidade em todas as turmas.',
+    colorBg: 'bg-brand-green',
     colorText: 'text-brand-green',
     photo: 'https://images.unsplash.com/photo-1601339434203-130259102db6?w=800&h=400&q=85&auto=format&fit=crop',
     expandedText: 'A Tempo de Aprender investiu pesadamente na qualificação e treinamento de seus profissionais para criar um ambiente verdadeiramente acolhedor para crianças atípicas, reforçando que somos uma escola feita para absolutamente todos.'
   },
-  { 
-    year: '2024', 
-    title: 'Referência regional', 
-    text: 'Reconhecida pela comunidade como escola de excelência em Escada e região, com mais de 20 anos de dedicação.', 
-    colorBg: 'bg-brand-sky-mid', 
+  {
+    year: '2024',
+    title: 'Referência regional',
+    text: 'Reconhecida pela comunidade como escola de excelência em Escada e região, com mais de 20 anos de dedicação.',
+    colorBg: 'bg-brand-sky-mid',
     colorText: 'text-brand-sky-mid',
     photo: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800&h=400&q=85&auto=format&fit=crop',
     expandedText: 'Hoje, somos orgulhosamente uma referência. Continuamos celebrando cada data cultural, vibrando com o desenvolvimento de cada aluno e trabalhando de mãos dadas com os pais para construir um futuro brilhante.'
@@ -135,7 +135,7 @@ export default function SobrePage() {
                     {i < TIMELINE.length - 1 && <div className="w-0.5 h-full bg-brand-sky-light/80 mt-4 min-h-[4rem]" />}
                   </div>
                   <div className="pb-8 w-full max-w-2xl">
-                    <button 
+                    <button
                       onClick={() => setExpandedYear(isExpanded ? null : year)}
                       className={`text-left w-full group focus:outline-none rounded-xl p-4 sm:p-5 transition-all duration-300 ${isExpanded ? 'bg-white shadow-md' : 'hover:bg-white/60'}`}
                       aria-expanded={isExpanded}
@@ -143,20 +143,20 @@ export default function SobrePage() {
                       <div className="flex justify-between items-center">
                         <h3 className="font-display font-bold text-brand-navy text-lg group-hover:text-brand-sky-mid transition-colors">{title}</h3>
                         <div className={`flex-shrink-0 w-6 h-6 rounded-full border border-brand-sky-light flex items-center justify-center text-brand-sky-mid transition-transform duration-300 ${isExpanded ? 'rotate-180 bg-brand-sky-pale' : ''}`}>
-                           <svg viewBox="0 0 24 24" fill="none" className="w-4 h-4"><path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                          <svg viewBox="0 0 24 24" fill="none" className="w-4 h-4"><path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
                         </div>
                       </div>
                       <p className="mt-2 text-sm sm:text-base text-brand-gray-mid leading-relaxed">{text}</p>
-                      
+
                       {/* Expanded Content */}
                       <div className={`grid transition-all duration-500 ease-in-out ${isExpanded ? 'grid-rows-[1fr] opacity-100 mt-6' : 'grid-rows-[0fr] opacity-0'}`}>
                         <div className="overflow-hidden">
                           {photo && (
                             <div className="h-40 sm:h-56 w-full rounded-xl overflow-hidden mb-4 relative">
-                              <ImageWithSkeleton 
-                                src={photo} 
-                                alt={`Marco de ${year}`} 
-                                className="w-full h-full object-cover" 
+                              <ImageWithSkeleton
+                                src={photo}
+                                alt={`Marco de ${year}`}
+                                className="w-full h-full object-cover"
                                 wrapperClassName="absolute inset-0 w-full h-full"
                               />
                             </div>
@@ -181,7 +181,7 @@ export default function SobrePage() {
           ref={ctaRef}
           className={`reveal relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center ${ctaVisible ? 'visible' : ''}`}
         >
-          <span className="text-xs font-display font-bold uppercase tracking-widest text-brand-sky">
+          <span className="text-xs font-display font-bold uppercase tracking-widest text-brand-sky-light">
             Venha nos conhecer
           </span>
           <h2 className="mt-3 font-display font-extrabold text-3xl sm:text-4xl text-white">
@@ -198,10 +198,10 @@ export default function SobrePage() {
               Fale conosco <IconArrowRight className="w-4 h-4" />
             </Link>
             <Link
-              to="/diferenciais"
+              to="/galeria"
               className="tap-target inline-flex items-center px-8 rounded-xl border-2 border-white/40 text-white font-display font-bold text-base hover:bg-white/10 transition-colors"
             >
-              Ver nossos diferenciais
+              Ver nossa galeria
             </Link>
           </div>
         </div>

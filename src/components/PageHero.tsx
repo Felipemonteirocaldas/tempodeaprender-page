@@ -9,7 +9,7 @@ interface PageHeroProps {
 
 export default function PageHero({ title, subtitle, breadcrumb }: PageHeroProps) {
   return (
-    <section className="relative bg-gradient-to-br from-[#BBE0FC] via-[#D8EEFD] to-[#EDF6FD] pt-28 pb-16 overflow-hidden border-b border-brand-sky-light/40">
+    <section className="relative bg-gradient-to-br from-[#BBE0FC] via-[#D8EEFD] to-[#EDF6FD] pt-40 pb-16 overflow-hidden border-b border-brand-sky-light/40">
       {/* Faixa do uniforme — topo */}
       <div aria-hidden="true" className="absolute top-0 left-0 right-0 flex h-1.5 z-10">
         <span className="flex-[3] bg-brand-sky" />

@@ -6,17 +6,21 @@ interface NavSection { title: string; links: { label: string; to: string }[] }
 interface SocialLink { label: string; href: string; svgPath: string }
 
 const NAV_SECTIONS: NavSection[] = [
-  { title: 'Escola', links: [
-    { label: 'Sobre nós', to: '/sobre' },
-    { label: 'Nossa Equipe', to: '/equipe' },
-    { label: 'Diferenciais', to: '/diferenciais' },
-    { label: 'Depoimentos', to: '/depoimentos' },
-    { label: 'Matrículas 2026', to: '/contato' },
-  ]},
-  { title: 'Segmentos', links: [
-    { label: 'Educação Infantil', to: '/contato' },
-    { label: 'Ensino Fundamental I', to: '/contato' },
-  ]},
+  {
+    title: 'Escola', links: [
+      { label: 'Sobre nós', to: '/sobre' },
+      { label: 'Nossa Equipe', to: '/equipe' },
+      { label: 'Diferenciais', to: '/diferenciais' },
+      { label: 'Depoimentos', to: '/depoimentos' },
+      { label: 'Matrículas 2026', to: '/contato' },
+    ]
+  },
+  {
+    title: 'Segmentos', links: [
+      { label: 'Educação Infantil', to: '/contato' },
+      { label: 'Ensino Fundamental I', to: '/contato' },
+    ]
+  },
 ]
 
 const SOCIAL_LINKS: SocialLink[] = [
@@ -63,7 +67,7 @@ export default function Footer() {
                 </span>
               </div>
             </Link>
-            <p className="mt-4 text-sm text-white/70 leading-relaxed">Educando com amor em Escada-PE há mais de 20 anos. Educação Infantil e Fundamental I.</p>
+            <p className="mt-4 text-sm text-white/90 leading-relaxed">Educando com amor em Escada-PE há mais de 20 anos. Educação Infantil e Fundamental I.</p>
             <div className="mt-6 flex gap-2" aria-label="Redes sociais">
               {SOCIAL_LINKS.map(({ label, href, svgPath }) => (
                 <a key={label} href={href} className="tap-target w-10 h-10 flex items-center justify-center rounded-lg bg-white/10 hover:bg-brand-sky/30 transition-colors" aria-label={`Nos siga no ${label}`} target="_blank" rel="noopener noreferrer">
@@ -80,7 +84,7 @@ export default function Footer() {
               <ul className="flex flex-col gap-2">
                 {links.map(({ label, to }) => (
                   <li key={label}>
-                    <Link to={to} className="tap-target inline-flex items-center text-sm text-white/70 hover:text-brand-sky transition-colors">{label}</Link>
+                    <Link to={to} className="tap-target inline-flex items-center text-sm text-white/90 hover:text-brand-sky-pale transition-colors">{label}</Link>
                   </li>
                 ))}
               </ul>
@@ -92,17 +96,17 @@ export default function Footer() {
             <p className="font-display font-bold text-sm text-white mb-4">Contato</p>
             <ul className="flex flex-col gap-3" aria-label="Informações de contato">
               <li>
-                <a href="https://whats.link/escolatempodeaprender" target="_blank" rel="noopener noreferrer" className="tap-target flex items-center gap-2 text-sm text-white/70 hover:text-brand-sky transition-colors" aria-label="WhatsApp da escola">
+                <a href="https://whats.link/escolatempodeaprender" target="_blank" rel="noopener noreferrer" className="tap-target flex items-center gap-2 text-sm text-white/90 hover:text-brand-sky-pale transition-colors" aria-label="WhatsApp da escola">
                   <IconPhone className="w-4 h-4 flex-shrink-0" /> whats.link/escolatempodeaprender
                 </a>
               </li>
               <li>
-                <a href="https://www.instagram.com/escolatempodeaprender24/" target="_blank" rel="noopener noreferrer" className="tap-target flex items-start gap-2 text-sm text-white/70 hover:text-brand-sky transition-colors" aria-label="Instagram: @escolatempodeaprender24">
+                <a href="https://www.instagram.com/escolatempodeaprender24/" target="_blank" rel="noopener noreferrer" className="tap-target flex items-start gap-2 text-sm text-white/90 hover:text-brand-sky-pale transition-colors" aria-label="Instagram: @escolatempodeaprender24">
                   <IconMail className="w-4 h-4 flex-shrink-0 mt-0.5" /> @escolatempodeaprender24
                 </a>
               </li>
               <li>
-                <a href="https://maps.google.com/?q=Avenida+Paulo+Leite+485+Escada+Pernambuco" target="_blank" rel="noopener noreferrer" className="tap-target flex items-start gap-2 text-sm text-white/70 hover:text-brand-sky transition-colors" aria-label="Ver endereço no mapa">
+                <a href="https://maps.google.com/?q=Avenida+Paulo+Leite+485+Escada+Pernambuco" target="_blank" rel="noopener noreferrer" className="tap-target flex items-start gap-2 text-sm text-white/90 hover:text-brand-sky-pale transition-colors" aria-label="Ver endereço no mapa">
                   <IconPin className="w-4 h-4 flex-shrink-0 mt-0.5" /> Av. Paulo Leite, 485<br />Escada — Pernambuco
                 </a>
               </li>
@@ -111,9 +115,15 @@ export default function Footer() {
         </div>
       </div>
 
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 pt-4">
+        <p className="text-center text-sm sm:text-base text-white/70 italic font-medium">
+          "Provai e vede que o Senhor é bom; bem-aventurado o homem que nele confia."
+        </p>
+      </div>
+
       {/* Barra inferior */}
       <div className="border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-white/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-white/70">
           <p>&copy; {new Date().getFullYear()} Escola Tempo de Aprender. Todos os direitos reservados.</p>
           <p>Escada — Pernambuco</p>
         </div>

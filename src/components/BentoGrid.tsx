@@ -15,13 +15,13 @@ interface ColorCardData {
 
 function PhotoCard({ id, tag, tagColor, title, body, textColor, imgSrc, imgAlt, span }: PhotoCardProps) {
   return (
-    <article className={`${span} rounded-2xl overflow-hidden relative min-h-[240px] flex flex-col justify-end group`} aria-labelledby={`card-title-${id}`}>
+    <article className={`${span} h-full rounded-2xl overflow-hidden relative min-h-[240px] flex flex-col justify-end group`} aria-labelledby={`card-title-${id}`}>
       <div className="absolute inset-0 w-full h-full z-0">
-        <ImageWithSkeleton 
-          src={imgSrc} 
-          alt={imgAlt} 
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
-          loading="lazy" 
+        <ImageWithSkeleton
+          src={imgSrc}
+          alt={imgAlt}
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          loading="lazy"
           wrapperClassName="w-full h-full"
         />
       </div>
@@ -38,7 +38,7 @@ function PhotoCard({ id, tag, tagColor, title, body, textColor, imgSrc, imgAlt, 
 function ColorCard({ card }: { card: ColorCardData }) {
   const Icon = card.icon
   return (
-    <article className={`${card.bg} ${card.span} rounded-2xl p-7 flex flex-col gap-4 group transition-all duration-300 hover:shadow-lg hover:-translate-y-1`} aria-labelledby={`card-title-${card.id}`}>
+    <article className={`${card.bg} ${card.span} h-full rounded-2xl p-7 flex flex-col justify-between gap-4 group transition-all duration-300 hover:shadow-lg hover:-translate-y-1`} aria-labelledby={`card-title-${card.id}`}>
       <div className="flex items-start justify-between gap-4">
         <span className={`${card.iconColor} flex-shrink-0 transition-transform duration-300 group-hover:scale-110`}><Icon className="w-8 h-8" /></span>
         <span className={`${card.tagColor} px-2.5 py-1 rounded-full text-xs font-display font-bold uppercase tracking-wide`}>{card.tag}</span>
@@ -88,15 +88,15 @@ export default function BentoGrid({ compact = false }: BentoGridProps) {
           ref={gridRef}
           className={`reveal grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 ${gridVisible ? 'visible' : ''}`}
         >
-          <div className="reveal-scale lg:col-span-2" style={{ transitionDelay: staggerDelay(0) }}>
+          <div className="reveal-scale lg:col-span-2 h-full" style={{ transitionDelay: staggerDelay(0) }}>
             <PhotoCard id="atividades" tag="Atividades Lúdicas" tagColor="bg-brand-sky/90 text-white" title="Aprender Brincando" body="Pescaria, atividades sensoriais e jogos pedagógicos que tornam o aprendizado uma aventura diária." textColor="text-white" imgSrc="https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=900&h=400&q=85&auto=format&fit=crop" imgAlt="Criança fazendo atividade artística com guaches e materiais coloridos" span="" />
           </div>
           {COLOR_CARDS.map((card, i) => (
-            <div key={card.id} className="reveal-scale" style={{ transitionDelay: staggerDelay(i + 1) }}>
+            <div key={card.id} className="reveal-scale h-full" style={{ transitionDelay: staggerDelay(i + 1) }}>
               <ColorCard card={card} />
             </div>
           ))}
-          <div className="reveal-scale lg:col-span-2" style={{ transitionDelay: staggerDelay(5) }}>
+          <div className="reveal-scale lg:col-span-2 h-full" style={{ transitionDelay: staggerDelay(5) }}>
             <PhotoCard id="comunidade" tag="Comunidade" tagColor="bg-brand-green/90 text-white" title="Família na Escola" body="Canal aberto com os pais, eventos e reuniões para acompanhar de perto cada etapa do seu filho." textColor="text-white" imgSrc="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=900&h=400&q=85&auto=format&fit=crop" imgAlt="Professor com turma de alunos em sala de aula" span="" />
           </div>
         </div>

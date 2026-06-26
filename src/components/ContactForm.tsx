@@ -67,7 +67,7 @@ export default function ContactForm() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Conversar pelo WhatsApp da secretaria"
-              className="tap-target flex items-center justify-center gap-3 px-6 rounded-2xl bg-[#25D366] text-white font-display font-bold text-sm hover:opacity-90 active:scale-95 transition-all shadow-md shadow-[#25D366]/30"
+              className="tap-target flex items-center justify-center gap-3 px-6 py-4 rounded-xl bg-brand-green text-white font-display font-black text-sm transition-all shadow-[0_4px_0_rgba(20,160,80,1)] hover:translate-y-0.5 hover:shadow-[0_2px_0_rgba(20,160,80,1)] active:translate-y-1 active:shadow-none"
             >
               <IconWhatsApp className="w-5 h-5" />
               Conversar pelo WhatsApp
@@ -77,7 +77,7 @@ export default function ContactForm() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Ver perfil no Instagram"
-              className="tap-target flex items-center justify-center gap-3 px-6 rounded-2xl bg-gradient-to-r from-[#833ab4] via-[#e1306c] to-[#f77737] text-white font-display font-bold text-sm hover:opacity-90 active:scale-95 transition-all shadow-md"
+              className="tap-target flex items-center justify-center gap-3 px-6 py-4 rounded-xl bg-brand-orange text-brand-navy font-display font-black text-sm transition-all shadow-[0_4px_0_rgba(200,60,40,1)] hover:translate-y-0.5 hover:shadow-[0_2px_0_rgba(200,60,40,1)] active:translate-y-1 active:shadow-none"
             >
               <IconInstagram className="w-5 h-5" />
               Ver no Instagram
