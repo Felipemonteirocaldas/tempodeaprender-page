@@ -10,7 +10,14 @@ export default function WelcomeModal() {
   const location = useLocation()
   const isHome = location.pathname === '/'
 
-  /* Mostrar após 900ms a cada carregamento de página (apenas na home e apenas 1 vez por sessão) */
+  /* Pré-carregar a imagem imediatamente ao carregar a página */
+  useEffect(() => {
+    if (!isHome) return
+    const preloadImg = new Image()
+    preloadImg.src = '/banner-set-amarelo.webp'
+  }, [isHome])
+
+  /* Mostrar rapidamente (250ms) a cada carregamento de página (apenas na home e apenas 1 vez por sessão) */
   useEffect(() => {
     if (!isHome || sessionStorage.getItem('setembro_amarelo_modal_seen')) return
 
@@ -19,7 +26,7 @@ export default function WelcomeModal() {
       /* Dois frames para garantir que a transição CSS dispare após o mount */
       requestAnimationFrame(() => requestAnimationFrame(() => setVisible(true)))
       sessionStorage.setItem('setembro_amarelo_modal_seen', 'true')
-    }, 900)
+    }, 250)
     return () => clearTimeout(timer)
   }, [isHome])
 
@@ -105,12 +112,18 @@ export default function WelcomeModal() {
             className="relative cursor-pointer group bg-amber-50 overflow-hidden"
             title="Clique para saber mais sobre a campanha"
           >
-            <img
-              src="/banner-set-amarelo.png"
-              alt="Banner Setembro Amarelo - Escola Tempo de Aprender"
-              className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-[1.02]"
-              loading="eager"
-            />
+            <picture>
+              <source srcSet="/banner-set-amarelo.webp" type="image/webp" />
+              <img
+                src="/banner-set-amarelo.png"
+                alt="Banner Setembro Amarelo - Escola Tempo de Aprender"
+                width={720}
+                height={1245}
+                className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                loading="eager"
+                fetchPriority="high"
+              />
+            </picture>
 
             {/* Selo sobreposto */}
             <div className="absolute top-3.5 left-3.5 z-20 bg-amber-400/95 text-brand-dark px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider shadow-md flex items-center gap-1.5 backdrop-blur-sm">

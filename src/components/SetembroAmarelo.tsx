@@ -87,12 +87,17 @@ export default function SetembroAmarelo() {
 
               <div className="relative bg-white rounded-3xl p-3 shadow-xl border border-amber-200 overflow-hidden">
                 <div className="relative rounded-2xl overflow-hidden shadow-inner bg-amber-50">
-                  <img
-                    src="/banner-set-amarelo.png"
-                    alt="Campanha Setembro Amarelo - Escola Tempo de Aprender. Juntos por mais vida! Falar sobre o que sentimos também é um ato de coragem."
-                    className="w-full h-auto object-cover transform transition duration-500 group-hover:scale-[1.02]"
-                    loading="lazy"
-                  />
+                  <picture>
+                    <source srcSet="/banner-set-amarelo.webp" type="image/webp" />
+                    <img
+                      src="/banner-set-amarelo.png"
+                      alt="Campanha Setembro Amarelo - Escola Tempo de Aprender. Juntos por mais vida! Falar sobre o que sentimos também é um ato de coragem."
+                      width={720}
+                      height={1245}
+                      className="w-full h-auto object-cover transform transition duration-500 group-hover:scale-[1.02]"
+                      loading="lazy"
+                    />
+                  </picture>
                   {/* Selo sobreposto */}
                   <div className="absolute top-3 left-3 bg-brand-navy/90 backdrop-blur-md text-white text-[11px] font-bold px-3 py-1 rounded-full flex items-center gap-1.5 shadow-md">
                     <IconRibbon className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
