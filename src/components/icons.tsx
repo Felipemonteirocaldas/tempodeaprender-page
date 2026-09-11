@@ -150,3 +150,10 @@ export const IconCalendar = ({ className = 'w-6 h-6' }: IconProps) => (
     <line x1="3" y1="10" x2="21" y2="10" stroke="currentColor" strokeWidth="2" />
   </svg>
 )
+
+export const IconRibbon = ({ className = 'w-6 h-6' }: IconProps) => (
+  <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+    <path d="M12 2C9.5 2 7.5 4 7.5 6.5C7.5 8.7 8.9 10.7 10.4 12.6L4.8 20.8C4.5 21.3 4.7 21.9 5.2 22.2C5.7 22.5 6.3 22.3 6.6 21.8L12 14L17.4 21.8C17.7 22.3 18.3 22.5 18.8 22.2C19.3 21.9 19.5 21.3 19.2 20.8L13.6 12.6C15.1 10.7 16.5 8.7 16.5 6.5C16.5 4 14.5 2 12 2ZM12 4.2C13.3 4.2 14.3 5.2 14.3 6.5C14.3 7.9 13.3 9.7 12 11.4C10.7 9.7 9.7 7.9 9.7 6.5C9.7 5.2 10.7 4.2 12 4.2Z" />
+  </svg>
+)
+

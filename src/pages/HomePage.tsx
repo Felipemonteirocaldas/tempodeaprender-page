@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import Hero from '@/components/Hero'
 import BentoGrid from '@/components/BentoGrid'
 import SEO from '@/components/SEO'
+import SetembroAmarelo from '@/components/SetembroAmarelo'
 import { useReveal, useStaggerReveal } from '@/hooks/useReveal'
 import { IconArrowRight, IconHeart, IconUsers, IconGraduation, IconCalendar } from '@/components/icons'
 
@@ -91,6 +92,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Seção Especial Setembro Amarelo */}
+      <SetembroAmarelo />
 
       {/* Mini Galeria Carrossel */}
       <section className="py-12 sm:py-16 bg-brand-sky-pale/20 border-b border-brand-sky-light/40 overflow-hidden">

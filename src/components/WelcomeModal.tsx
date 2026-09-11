@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
-import { IconClose, IconArrowRight, IconBook } from './icons'
+import { useLocation } from 'react-router-dom'
+import { IconClose, IconArrowRight, IconRibbon, IconPhone } from './icons'
 
 export default function WelcomeModal() {
   const [rendered, setRendered] = useState(false)
@@ -12,13 +12,13 @@ export default function WelcomeModal() {
 
   /* Mostrar após 900ms a cada carregamento de página (apenas na home e apenas 1 vez por sessão) */
   useEffect(() => {
-    if (!isHome || sessionStorage.getItem('welcome_modal_seen')) return
+    if (!isHome || sessionStorage.getItem('setembro_amarelo_modal_seen')) return
 
     const timer = setTimeout(() => {
       setRendered(true)
       /* Dois frames para garantir que a transição CSS dispare após o mount */
       requestAnimationFrame(() => requestAnimationFrame(() => setVisible(true)))
-      sessionStorage.setItem('welcome_modal_seen', 'true')
+      sessionStorage.setItem('setembro_amarelo_modal_seen', 'true')
     }, 900)
     return () => clearTimeout(timer)
   }, [isHome])
@@ -40,6 +40,16 @@ export default function WelcomeModal() {
     setTimeout(() => setRendered(false), 350)
   }
 
+  function handleGoToCampaign() {
+    dismiss()
+    setTimeout(() => {
+      const el = document.getElementById('setembro-amarelo')
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }
+    }, 200)
+  }
+
   /* Fechar com Escape */
   useEffect(() => {
     if (!visible) return
@@ -54,13 +64,13 @@ export default function WelcomeModal() {
 
   return (
     <div
-      className={`fixed inset-0 z-[9999] flex items-center justify-center px-4 transition-opacity duration-300 ${visible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+      className={`fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-4 transition-opacity duration-300 ${visible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
     >
-      {/* Backdrop */}
+      {/* Backdrop com desfoque */}
       <div
         aria-hidden="true"
         onClick={dismiss}
-        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+        className="absolute inset-0 bg-brand-dark/70 backdrop-blur-sm"
       />
 
       {/* Dialog */}
@@ -70,73 +80,90 @@ export default function WelcomeModal() {
         aria-modal="true"
         aria-labelledby="modal-title"
         tabIndex={-1}
-        className="relative z-10 w-full max-w-[380px] rounded-2xl outline-none overflow-hidden"
+        className="relative z-10 w-full max-w-[370px] sm:max-w-[400px] max-h-[92vh] flex flex-col rounded-3xl outline-none overflow-hidden bg-white shadow-2xl border border-amber-300/60"
         style={{
-          backgroundColor: '#265CA1', // Um tom azul inspirado na imagem
-          boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 0, 0, 0.1)',
+          boxShadow: '0 25px 60px -15px rgba(0, 0, 0, 0.5), 0 0 35px rgba(245, 158, 11, 0.25)',
           transform: visible ? 'scale(1) translateY(0)' : 'scale(0.95) translateY(20px)',
           transition: 'transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)',
         }}
       >
-        {/* Botão fechar */}
+        {/* Botão fechar com alto contraste e blur */}
         <button
           type="button"
           onClick={dismiss}
-          aria-label="Fechar banner"
-          className="absolute top-4 right-4 z-20 tap-target w-8 h-8 flex items-center justify-center rounded-full bg-black/30 text-white hover:bg-black/50 backdrop-blur-sm transition-colors"
+          aria-label="Fechar banner do Setembro Amarelo"
+          className="absolute top-3.5 right-3.5 z-30 w-8 h-8 flex items-center justify-center rounded-full bg-black/60 text-white hover:bg-black/80 backdrop-blur-md transition-all shadow-md hover:scale-105 active:scale-95"
         >
           <IconClose className="w-4 h-4" />
         </button>
 
-        {/* Imagem do tema e overlay */}
-        <div className="relative h-[200px] w-full">
-          <img
-            src="/modal-bg.png"
-            alt="Ilustração lúdica de uma escola"
-            className="w-full h-full object-cover"
-            loading="eager"
-          />
-          {/* Degradê para fundir a imagem com o fundo */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#265CA1] via-[#265CA1]/40 to-transparent" />
-        </div>
-
-        {/* Corpo do modal */}
-        <div className="px-6 pb-6 relative z-10 -mt-8">
-          
-          <div className="mb-3">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#DF5C11] text-white text-[11px] font-black uppercase tracking-wider shadow-sm">
-              <IconBook className="w-3.5 h-3.5" aria-hidden="true" />
-              Campanha de meio de ano
-            </span>
-          </div>
-          
-          <h2
-            id="modal-title"
-            className="font-display font-black text-[26px] text-white leading-tight drop-shadow-sm mb-4"
+        {/* Conteúdo com scroll suave para telas pequenas */}
+        <div className="overflow-y-auto hide-scrollbar flex flex-col">
+          {/* Banner oficial clicável */}
+          <div
+            onClick={handleGoToCampaign}
+            className="relative cursor-pointer group bg-amber-50 overflow-hidden"
+            title="Clique para saber mais sobre a campanha"
           >
-            Matrículas Abertas<br />de Meio de Ano!
-          </h2>
-          
-          {/* Linha divisória colorida (azul, verde, amarelo/laranja, amarelo) */}
-          <div className="flex h-[3px] w-full rounded-full overflow-hidden mb-5 bg-[#007BFF]">
-            <div className="w-1/4 bg-[#007BFF]"></div>
-            <div className="w-1/4 bg-brand-green"></div>
-            <div className="w-1/4 bg-brand-red"></div>
-            <div className="w-1/4 bg-brand-yellow"></div>
-          </div>
-          
-          <p className="text-sm text-white/90 leading-relaxed font-medium mb-6">
-            O segundo semestre está chegando com novas descobertas! Garanta o melhor ensino para o seu filho com metodologia lúdica, afeto e ambiente seguro na{' '}
-            <span className="text-brand-yellow font-bold">Tempo de Aprender</span>.
-          </p>
+            <img
+              src="/banner-set-amarelo.png"
+              alt="Banner Setembro Amarelo - Escola Tempo de Aprender"
+              className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+              loading="eager"
+            />
 
-          <Link
-            to="/contato"
-            onClick={dismiss}
-            className="tap-target flex items-center justify-center gap-2 w-full py-3.5 rounded-xl bg-[#007BFF] text-white font-display font-bold text-sm hover:bg-[#0069d9] transition-all shadow-md hover:shadow-lg active:scale-[0.98]"
-          >
-            Fazer Matrícula Já <IconArrowRight className="w-4 h-4" />
-          </Link>
+            {/* Selo sobreposto */}
+            <div className="absolute top-3.5 left-3.5 z-20 bg-amber-400/95 text-brand-dark px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider shadow-md flex items-center gap-1.5 backdrop-blur-sm">
+              <IconRibbon className="w-3.5 h-3.5 fill-brand-dark text-brand-dark" />
+              Setembro Amarelo
+            </div>
+
+            {/* Gradiente sutil na base da imagem */}
+            <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white via-white/70 to-transparent" />
+          </div>
+
+          {/* Corpo do modal com mensagem e ações */}
+          <div className="px-5 pb-5 pt-1 relative z-10 bg-white flex flex-col gap-3">
+            <div>
+              <h2
+                id="modal-title"
+                className="font-display font-black text-xl text-brand-navy leading-tight"
+              >
+                A vida importa. Você importa! 💛
+              </h2>
+              <p className="text-xs text-brand-gray-mid mt-1 leading-relaxed">
+                Falar sobre o que sentimos é um ato de coragem. Conheça as ações de acolhimento e bem-estar emocional na <strong className="text-brand-navy">Tempo de Aprender</strong>.
+              </p>
+            </div>
+
+            {/* Linha decorativa Setembro Amarelo */}
+            <div className="flex h-1 w-full rounded-full overflow-hidden bg-amber-100">
+              <div className="w-1/3 bg-amber-400" />
+              <div className="w-1/3 bg-brand-sky" />
+              <div className="w-1/3 bg-brand-green" />
+            </div>
+
+            {/* Botões de Ação */}
+            <div className="flex flex-col gap-2 pt-1">
+              <button
+                type="button"
+                onClick={handleGoToCampaign}
+                className="tap-target flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-amber-400 text-brand-dark font-display font-black text-sm hover:bg-amber-300 transition-all shadow-md hover:shadow-lg active:scale-[0.98]"
+              >
+                <span>Conhecer Campanha na Escola</span>
+                <IconArrowRight className="w-4 h-4" />
+              </button>
+
+              <a
+                href="tel:188"
+                className="tap-target flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-brand-sky-pale text-brand-navy font-display font-bold text-xs hover:bg-brand-sky-light transition-colors"
+                aria-label="Ligue 188 para o Centro de Valorização da Vida"
+              >
+                <IconPhone className="w-3.5 h-3.5 text-amber-600" />
+                <span>Precisa conversar? <strong>Ligue 188 (CVV 24h)</strong></span>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
