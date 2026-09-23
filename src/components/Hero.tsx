@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 interface Feature {
@@ -54,13 +53,6 @@ const HIGHLIGHTS: string[] = [
 ]
 
 export default function Hero() {
-  const [entered, setEntered] = useState(false)
-
-  useEffect(() => {
-    const timer = setTimeout(() => setEntered(true), 150)
-    return () => clearTimeout(timer)
-  }, [])
-
   return (
     <>
       <section
@@ -91,12 +83,8 @@ export default function Hero() {
 
               {/* Badge matrícula */}
               <span
-                className={[
-                  'inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-sky/15 border border-brand-sky/30 text-brand-navy font-display font-bold text-xs uppercase tracking-wider mb-6 transition-all duration-700',
-                  entered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4',
-                ].join(' ')}
-                style={{ transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)', transitionDelay: '100ms' }}
-                role="status"
+                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-sky/15 border border-brand-sky/30 text-brand-navy font-display font-bold text-xs uppercase tracking-wider mb-6 hero-in"
+                style={{ animationDelay: '100ms' }}
               >
                 <span className="w-2.5 h-2.5 rounded-full bg-brand-red animate-pulse" aria-hidden="true" />
                 Matrículas Abertas 2026
@@ -104,11 +92,7 @@ export default function Hero() {
 
               <h1
                 id="hero-heading"
-                className={[
-                  'font-display font-bold text-4xl sm:text-6xl text-brand-navy leading-[1.15] tracking-tight transition-all duration-700',
-                  entered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6',
-                ].join(' ')}
-                style={{ transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)', transitionDelay: '200ms' }}
+                className="font-display font-bold text-4xl sm:text-6xl text-brand-navy leading-[1.15] tracking-tight"
               >
                 Aprender hoje,<br />
                 <span className="relative inline-block font-handwritten text-[#0C459E] lowercase my-1">
@@ -132,11 +116,8 @@ export default function Hero() {
               </h1>
 
               <p
-                className={[
-                  'mt-6 text-base sm:text-lg text-brand-navy/80 leading-relaxed max-w-xl transition-all duration-700',
-                  entered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5',
-                ].join(' ')}
-                style={{ transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)', transitionDelay: '350ms' }}
+                className="mt-6 text-base sm:text-lg text-brand-navy/80 leading-relaxed max-w-xl hero-in"
+                style={{ animationDelay: '350ms' }}
               >
                 Educação Infantil e Ensino Fundamental I com metodologia ativa,
                 ambiente acolhedor e professores que fazem a diferença.
@@ -144,11 +125,8 @@ export default function Hero() {
 
               {/* Lista de destaques */}
               <ul
-                className={[
-                  'mt-6 flex flex-col gap-2.5 transition-all duration-700',
-                  entered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4',
-                ].join(' ')}
-                style={{ transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)', transitionDelay: '450ms' }}
+                className="mt-6 flex flex-col gap-2.5 hero-in"
+                style={{ animationDelay: '450ms' }}
                 aria-label="Destaques da escola"
               >
                 {HIGHLIGHTS.map(item => (
@@ -164,11 +142,8 @@ export default function Hero() {
               </ul>
 
               <div
-                className={[
-                  'mt-8 transition-all duration-700',
-                  entered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4',
-                ].join(' ')}
-                style={{ transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)', transitionDelay: '550ms' }}
+                className="mt-8 hero-in"
+                style={{ animationDelay: '550ms' }}
               >
                 <Link
                   to="/contato"
@@ -190,27 +165,23 @@ export default function Hero() {
                 {/* Moldura de Fundo Ondulada do Recorte */}
                 <div
                   aria-hidden="true"
-                  className={[
-                    'absolute inset-0 bg-[#A2D5FA]/30 rounded-[45%_55%_60%_40%_/_50%_40%_60%_50%] transition-transform duration-[1.4s] scale-105 pointer-events-none z-0',
-                    entered ? 'rotate-3' : 'rotate-0',
-                  ].join(' ')}
-                  style={{ transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)', transitionDelay: '100ms' }}
+                  className="absolute inset-0 bg-[#A2D5FA]/30 rounded-[45%_55%_60%_40%_/_50%_40%_60%_50%] scale-105 rotate-3 pointer-events-none z-0"
                 />
 
                 {/* Recorte da foto real com bordas orgânicas fluidas */}
                 <div
-                  className={[
-                    'relative w-full h-full overflow-hidden shadow-2xl transition-all duration-[1.2s] z-10',
-                    entered ? 'opacity-100 scale-100' : 'opacity-0 scale-95',
-                    'rounded-[40%_60%_50%_50%_/_60%_45%_55%_40%] border-8 border-white bg-white',
-                  ].join(' ')}
-                  style={{ transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}
+                  className="relative w-full h-full overflow-hidden shadow-2xl z-10 rounded-[40%_60%_50%_50%_/_60%_45%_55%_40%] border-8 border-white bg-white"
                 >
                   <img
-                    src="/galeria/SJ02HOME.jpeg"
+                    src="/galeria/SJ02HOME.webp"
+                    srcSet="/galeria/SJ02HOME-640.webp 640w, /galeria/SJ02HOME.webp 900w"
+                    sizes="(min-width: 1024px) 540px, 92vw"
+                    width={900}
+                    height={818}
                     alt="Família aproveitando a festa junina na Escola Tempo de Aprender"
                     className="w-full h-full object-cover transition-transform duration-[1.5s] hover:scale-105"
-                    loading="eager"
+                    {...{ fetchpriority: 'high' }} /* React 18 só repassa o atributo em minúsculas */
+                    decoding="async"
                   />
                 </div>
 

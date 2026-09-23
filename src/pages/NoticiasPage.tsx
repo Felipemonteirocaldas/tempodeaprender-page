@@ -1,13 +1,8 @@
 import PageHero from '@/components/PageHero'
-import SEO from '@/components/SEO'
 
 export default function NoticiasPage() {
   return (
     <>
-      <SEO
-        title="Notícias — Escola Tempo de Aprender"
-        description="Acompanhe as últimas novidades, eventos e comunicados da Escola Tempo de Aprender em Escada, PE."
-      />
       <PageHero
         title="Fique por dentro"
         subtitle="Acompanhe as últimas novidades, eventos e comunicados da Escola Tempo de Aprender."

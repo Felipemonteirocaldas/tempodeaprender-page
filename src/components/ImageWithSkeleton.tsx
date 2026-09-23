@@ -1,4 +1,4 @@
-import { useState, ImgHTMLAttributes } from 'react'
+import { useEffect, useRef, useState, ImgHTMLAttributes } from 'react'
 
 interface ImageWithSkeletonProps extends ImgHTMLAttributes<HTMLImageElement> {
   skeletonClassName?: string;
@@ -12,6 +12,12 @@ export default function ImageWithSkeleton({
   ...props 
 }: ImageWithSkeletonProps) {
   const [isLoaded, setIsLoaded] = useState(false)
+  const imgRef = useRef<HTMLImageElement>(null)
+
+  /* Imagem em cache ou carregada antes da hidratação não dispara onLoad de novo */
+  useEffect(() => {
+    if (imgRef.current?.complete) setIsLoaded(true)
+  }, [])
 
   return (
     <div className={`relative overflow-hidden ${wrapperClassName}`}>
@@ -22,9 +28,13 @@ export default function ImageWithSkeleton({
       />
       {/* Imagem real */}
       <img
+        loading="lazy"
+        decoding="async"
         {...props}
+        ref={imgRef}
         className={`${className} relative z-10 transition-opacity duration-700 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
         onLoad={() => setIsLoaded(true)}
+        onError={() => setIsLoaded(true)}
       />
     </div>
   )

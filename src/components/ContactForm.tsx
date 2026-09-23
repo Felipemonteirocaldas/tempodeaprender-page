@@ -5,11 +5,43 @@ import { useReveal } from '@/hooks/useReveal'
 
 const SERIES: string[] = ['Educação Infantil', '1º ao 5º ano (Fundamental I)']
 
-const INPUT_CLASS = 'tap-target w-full px-4 rounded-xl border-2 border-brand-sky-light text-sm text-brand-dark placeholder:text-brand-gray-mid focus:outline-none focus:border-brand-sky focus:ring-2 focus:ring-brand-sky/20 transition'
+/* WhatsApp da secretaria (destino de whats.link/escolatempodeaprender) */
+const WHATSAPP_NUMBER = '558191121015'
 
-interface FieldProps { id: string; label: string; required?: boolean; children: ReactNode }
+const INPUT_CLASS = 'tap-target w-full px-4 rounded-xl border-2 border-brand-sky-light text-sm text-brand-dark placeholder:text-brand-gray-mid focus:outline-none focus:border-brand-sky focus:ring-2 focus:ring-brand-sky/20 transition aria-[invalid=true]:border-[#C8102E]'
 
-function Field({ id, label, required, children }: FieldProps) {
+type FieldName = 'nome' | 'email' | 'telefone' | 'serie'
+type FormErrors = Partial<Record<FieldName, string>>
+
+function validate(data: FormData): FormErrors {
+  const errors: FormErrors = {}
+  const nome = String(data.get('nome') ?? '').trim()
+  const email = String(data.get('email') ?? '').trim()
+  const telefone = String(data.get('telefone') ?? '').replace(/\D/g, '')
+  if (nome.length < 3) errors.nome = 'Informe seu nome completo.'
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errors.email = 'Informe um e-mail válido, como nome@email.com.'
+  if (telefone.length < 10 || telefone.length > 13) errors.telefone = 'Informe o WhatsApp com DDD, como (81) 90000-0000.'
+  if (!data.get('serie')) errors.serie = 'Selecione o segmento de interesse.'
+  return errors
+}
+
+function buildWhatsAppUrl(data: FormData): string {
+  const linhas = [
+    'Olá! Vim pelo site e gostaria de informações sobre matrícula.',
+    '',
+    `*Nome:* ${String(data.get('nome')).trim()}`,
+    `*E-mail:* ${String(data.get('email')).trim()}`,
+    `*WhatsApp:* ${String(data.get('telefone')).trim()}`,
+    `*Segmento:* ${String(data.get('serie'))}`,
+  ]
+  const mensagem = String(data.get('mensagem') ?? '').trim()
+  if (mensagem) linhas.push(`*Mensagem:* ${mensagem}`)
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(linhas.join('\n'))}`
+}
+
+interface FieldProps { id: string; label: string; required?: boolean; error?: string; children: ReactNode }
+
+function Field({ id, label, required, error, children }: FieldProps) {
   return (
     <div className="flex flex-col gap-1.5">
       <label htmlFor={id} className="text-sm font-medium text-brand-navy">
@@ -18,19 +50,48 @@ function Field({ id, label, required, children }: FieldProps) {
         {required && <span className="sr-only"> (obrigatório)</span>}
       </label>
       {children}
+      {error && (
+        <p id={`${id}-error`} className="text-xs font-medium text-[#C8102E]">
+          {error}
+        </p>
+      )}
     </div>
   )
 }
 
 export default function ContactForm() {
   const [sent, setSent] = useState<boolean>(false)
+  const [whatsUrl, setWhatsUrl] = useState<string>('')
+  const [errors, setErrors] = useState<FormErrors>({})
   const [infoRef, infoVisible] = useReveal<HTMLDivElement>()
   const [formRef, formVisible] = useReveal<HTMLDivElement>({ threshold: 0.08 })
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
+    const form = e.currentTarget
+    const data = new FormData(form)
+    const found = validate(data)
+    setErrors(found)
+
+    const firstInvalid = Object.keys(found)[0]
+    if (firstInvalid) {
+      form.querySelector<HTMLElement>(`#${firstInvalid}`)?.focus()
+      return
+    }
+
+    const url = buildWhatsAppUrl(data)
+    setWhatsUrl(url)
+    /* Aberto no próprio clique para não ser bloqueado como pop-up */
+    const win = window.open(url, '_blank', 'noopener')
+    if (!win) window.location.href = url
     setSent(true)
   }
+
+  /* Liga o campo à mensagem de erro para leitores de tela */
+  const errorProps = (name: FieldName) => ({
+    'aria-invalid': errors[name] ? true : undefined,
+    'aria-describedby': errors[name] ? `${name}-error` : undefined,
+  })
 
   return (
     <section id="contato" aria-labelledby="contact-heading" className="py-24 bg-white">
@@ -111,16 +172,25 @@ export default function ContactForm() {
                 <span className="w-16 h-16 rounded-full bg-brand-sky flex items-center justify-center">
                   <IconCheck className="w-8 h-8 text-white" />
                 </span>
-                <h3 className="font-display font-bold text-2xl text-brand-navy">Mensagem enviada!</h3>
+                <h3 className="font-display font-bold text-2xl text-brand-navy">Quase lá!</h3>
                 <p className="text-brand-gray-mid text-sm">
-                  Entraremos em contato em até 1 dia útil. Obrigado pelo interesse!
+                  Abrimos o WhatsApp da secretaria com a sua mensagem pronta. É só tocar em <strong>enviar</strong> por lá para concluir.
                 </p>
+                <a
+                  href={whatsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="tap-target mt-2 inline-flex items-center justify-center gap-2 px-6 rounded-lg bg-[#1E8E4A] text-white font-display font-bold text-sm hover:opacity-90 transition-opacity"
+                >
+                  <IconWhatsApp className="w-5 h-5" />
+                  Abrir o WhatsApp de novo
+                </a>
                 <button
                   type="button"
                   onClick={() => setSent(false)}
-                  className="tap-target mt-4 px-6 rounded-lg bg-brand-navy text-white font-display font-bold text-sm hover:bg-brand-navy-light transition-colors"
+                  className="tap-target px-6 rounded-lg text-brand-navy font-display font-bold text-sm hover:underline"
                 >
-                  Enviar outra mensagem
+                  Voltar ao formulário
                 </button>
               </div>
             ) : (
@@ -130,35 +200,35 @@ export default function ContactForm() {
                 aria-label="Formulário de contato e matrícula"
                 className="flex flex-col gap-5"
               >
-                <Field id="nome" label="Nome completo" required>
+                <Field id="nome" error={errors.nome} label="Nome completo" required>
                   <input
-                    id="nome" type="text" name="nome" autoComplete="name" required
+                    id="nome" {...errorProps('nome')} type="text" name="nome" autoComplete="name" required
                     className={INPUT_CLASS}
                     placeholder="Ex: Maria da Silva"
                     aria-required="true"
                   />
                 </Field>
                 <div className="grid sm:grid-cols-2 gap-5">
-                  <Field id="email" label="E-mail" required>
+                  <Field id="email" error={errors.email} label="E-mail" required>
                     <input
-                      id="email" type="email" name="email" autoComplete="email" required
+                      id="email" {...errorProps('email')} type="email" name="email" autoComplete="email" required
                       className={INPUT_CLASS}
                       placeholder="seu@email.com"
                       aria-required="true"
                     />
                   </Field>
-                  <Field id="telefone" label="WhatsApp" required>
+                  <Field id="telefone" error={errors.telefone} label="WhatsApp" required>
                     <input
-                      id="telefone" type="tel" name="telefone" autoComplete="tel" required
+                      id="telefone" {...errorProps('telefone')} type="tel" name="telefone" autoComplete="tel" required
                       className={INPUT_CLASS}
                       placeholder="(81) 90000-0000"
                       aria-required="true"
                     />
                   </Field>
                 </div>
-                <Field id="serie" label="Segmento de interesse" required>
+                <Field id="serie" error={errors.serie} label="Segmento de interesse" required>
                   <select
-                    id="serie" name="serie" required defaultValue=""
+                    id="serie" {...errorProps('serie')} name="serie" required defaultValue=""
                     className={`${INPUT_CLASS} bg-white`}
                     aria-required="true"
                   >
@@ -177,10 +247,10 @@ export default function ContactForm() {
                   type="submit"
                   className="tap-target w-full rounded-xl bg-brand-navy text-white font-display font-bold text-base hover:bg-brand-navy-light transition-colors shadow-lg shadow-brand-navy/25"
                 >
-                  Solicitar informações
+                  Enviar pelo WhatsApp
                 </button>
                 <p className="text-xs text-brand-gray-mid text-center">
-                  Seus dados estão protegidos conforme a LGPD.
+                  Ao enviar, abrimos o WhatsApp da secretaria com sua mensagem pronta. Seus dados são usados apenas para o atendimento, conforme a LGPD.
                 </p>
               </form>
             )}

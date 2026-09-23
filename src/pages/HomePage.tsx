@@ -2,7 +2,6 @@ import { useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Hero from '@/components/Hero'
 import BentoGrid from '@/components/BentoGrid'
-import SEO from '@/components/SEO'
 import SetembroAmarelo from '@/components/SetembroAmarelo'
 import { useReveal, useStaggerReveal } from '@/hooks/useReveal'
 import { IconArrowRight, IconHeart, IconUsers, IconGraduation, IconCalendar } from '@/components/icons'
@@ -60,11 +59,6 @@ export default function HomePage() {
 
   return (
     <>
-      <SEO
-        title="Tempo de Aprender — Escola Infantil e Ensino Fundamental em Escada, PE"
-        description="Escola Tempo de Aprender em Escada, PE. Matrículas abertas para Educação Infantil e Ensino Fundamental. Metodologia ativa, afeto e excelência no ensino."
-        keywords="escola infantil em Escada PE, matrícula fundamental Escada, escola tempo de aprender, educação infantil Escada PE, ensino fundamental Escada"
-      />
       <Hero />
 
       {/* Seção de destaque rápido */}
@@ -122,13 +116,13 @@ export default function HomePage() {
             className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-6 hide-scrollbar cursor-grab select-none"
           >
             {[
-              '/galeria/SJ01.jpeg',
-              '/galeria/SJ02HOME.jpeg',
-              '/galeria/SJ03.jpeg',
-              '/galeria/SJ04.jpeg',
-              '/galeria/SJ05.jpeg',
-              '/galeria/SJ06.jpeg',
-              '/galeria/SJ07.jpeg'
+              '/galeria/SJ01-640.webp',
+              '/galeria/SJ02HOME-640.webp',
+              '/galeria/SJ03-640.webp',
+              '/galeria/SJ04-640.webp',
+              '/galeria/SJ05-640.webp',
+              '/galeria/SJ06-640.webp',
+              '/galeria/SJ07-640.webp'
             ].map((src, i) => (
               <div
                 key={i}
@@ -137,7 +131,7 @@ export default function HomePage() {
                 }}
                 className="relative w-64 h-44 sm:w-80 sm:h-56 rounded-3xl overflow-hidden flex-shrink-0 shadow-md snap-center group/img cursor-pointer"
               >
-                <img src={src} alt="Momento na escola" draggable={false} className="w-full h-full object-cover transition-transform duration-700 group-hover/img:scale-105 pointer-events-none" loading="lazy" />
+                <img src={src} alt="Momento na escola" draggable={false} className="w-full h-full object-cover transition-transform duration-700 group-hover/img:scale-105 pointer-events-none" loading="lazy" decoding="async" />
               </div>
             ))}
           </div>

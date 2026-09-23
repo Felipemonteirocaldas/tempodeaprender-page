@@ -1,9 +1,9 @@
-import { useEffect } from 'react'
-import { useLocation, useOutlet } from 'react-router-dom'
-import { AnimatePresence, motion } from 'framer-motion'
+import { useEffect, useRef } from 'react'
+import { useLocation, Outlet } from 'react-router-dom'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import WelcomeModal from '@/components/WelcomeModal'
+import SEO from '@/components/SEO'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -15,10 +15,15 @@ function ScrollToTop() {
 
 export default function MainLayout() {
   const location = useLocation()
-  const outlet = useOutlet()
+
+  /* Anima só nas trocas de rota — no primeiro carregamento o conteúdo aparece direto (melhor LCP) */
+  const firstPath = useRef(location.pathname)
+  const navigated = useRef(false)
+  if (location.pathname !== firstPath.current) navigated.current = true
 
   return (
     <>
+      <SEO />
       <ScrollToTop />
       <a
         href="#main-content"
@@ -28,17 +33,10 @@ export default function MainLayout() {
       </a>
       <Header />
       <main id="main-content" className="relative min-h-screen">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={location.pathname}
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -15 }}
-            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          >
-            {outlet}
-          </motion.div>
-        </AnimatePresence>
+        {/* Transição de entrada em CSS — sem atrasar a navegação com animação de saída */}
+        <div key={location.pathname} className={navigated.current ? 'page-enter' : undefined}>
+          <Outlet />
+        </div>
       </main>
       <Footer />
       <WelcomeModal />

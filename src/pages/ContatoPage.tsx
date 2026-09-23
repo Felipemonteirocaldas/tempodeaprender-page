@@ -1,7 +1,5 @@
-import { Link } from 'react-router-dom'
 import PageHero from '@/components/PageHero'
 import ContactForm from '@/components/ContactForm'
-import SEO from '@/components/SEO'
 import { useReveal } from '@/hooks/useReveal'
 import { IconPin, IconArrowRight } from '@/components/icons'
 
@@ -11,11 +9,6 @@ export default function ContatoPage() {
 
   return (
     <>
-      <SEO
-        title="Contato e Matrículas — Escola Tempo de Aprender em Escada, PE"
-        description="Fale conosco para agendar uma visita e fazer a matrícula fundamental ou infantil em Escada, PE. Localização, horário de atendimento e WhatsApp."
-        keywords="contato tempo de aprender, matrícula fundamental Escada, matrícula infantil Escada PE, telefone escola Escada PE, endereço escola tempo de aprender"
-      />
       <PageHero
         title="Fale Conosco"
         subtitle="Tire suas dúvidas, agende uma visita ou solicite informações sobre matrículas. Estamos prontos para receber sua família!"
@@ -90,13 +83,12 @@ export default function ContatoPage() {
                 </p>
               </div>
 
-              <Link
-                to="/contato"
-                onClick={() => document.getElementById('contato')?.scrollIntoView({ behavior: 'smooth' })}
+              <a
+                href="#contato"
                 className="tap-target flex items-center justify-center gap-2 px-6 rounded-2xl bg-brand-navy text-white font-display font-bold text-sm hover:bg-brand-navy-light transition-colors shadow-md"
               >
                 Preencher formulário <IconArrowRight className="w-4 h-4" />
-              </Link>
+              </a>
             </div>
           </div>
         </div>

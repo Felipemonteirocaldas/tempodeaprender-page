@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://escolatempodeaprender.com.br/sitemap.xml
+Sitemap: https://www.escolatempodeaprender.com.br/sitemap.xml

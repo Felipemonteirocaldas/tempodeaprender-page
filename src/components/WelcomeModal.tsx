@@ -2,10 +2,23 @@ import { useEffect, useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { IconClose, IconArrowRight, IconRibbon, IconPhone } from './icons'
 
+const SHOW_DELAY_MS = 4000
+const SEEN_KEY = 'setembro_amarelo_modal_seen'
+
+/* sessionStorage pode lançar erro em navegação privada ou com cookies bloqueados */
+function wasSeen(): boolean {
+  try { return sessionStorage.getItem(SEEN_KEY) === 'true' } catch { return false }
+}
+
+function markSeen() {
+  try { sessionStorage.setItem(SEEN_KEY, 'true') } catch { /* ignora */ }
+}
+
 export default function WelcomeModal() {
   const [rendered, setRendered] = useState(false)
   const [visible, setVisible] = useState(false)
   const dialogRef = useRef<HTMLDivElement>(null)
+  const previousFocus = useRef<HTMLElement | null>(null)
 
   const location = useLocation()
   const isHome = location.pathname === '/'
@@ -17,22 +30,26 @@ export default function WelcomeModal() {
     preloadImg.src = '/banner-set-amarelo.webp'
   }, [isHome])
 
-  /* Mostrar rapidamente (250ms) a cada carregamento de página (apenas na home e apenas 1 vez por sessão) */
+  /* Apenas na home e 1 vez por sessão, após alguns segundos de leitura — pop-up
+     imediato atrapalha a navegação e é penalizado pelo Google em buscas mobile */
   useEffect(() => {
-    if (!isHome || sessionStorage.getItem('setembro_amarelo_modal_seen')) return
+    if (!isHome || wasSeen()) return
 
     const timer = setTimeout(() => {
       setRendered(true)
       /* Dois frames para garantir que a transição CSS dispare após o mount */
       requestAnimationFrame(() => requestAnimationFrame(() => setVisible(true)))
-      sessionStorage.setItem('setembro_amarelo_modal_seen', 'true')
-    }, 250)
+      markSeen()
+    }, SHOW_DELAY_MS)
     return () => clearTimeout(timer)
   }, [isHome])
 
-  /* Focar o dialog ao abrir */
+  /* Focar o dialog ao abrir e devolver o foco ao fechar */
   useEffect(() => {
-    if (visible) dialogRef.current?.focus()
+    if (!visible) return
+    previousFocus.current = document.activeElement as HTMLElement | null
+    dialogRef.current?.focus()
+    return () => previousFocus.current?.focus()
   }, [visible])
 
   /* Travar scroll do body enquanto o modal está aberto */
