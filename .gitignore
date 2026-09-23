@@ -5,3 +5,8 @@ dist/
 .DS_Store
 *.log
 dist-ssr/
+
+# Chaves de conta de serviço do Google (nunca versionar)
+*service-account*.json
+*-key.json
+google-key*.json
