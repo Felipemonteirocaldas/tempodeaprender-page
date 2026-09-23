@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import PageHero from '@/components/PageHero'
 import About from '@/components/About'
-import SEO from '@/components/SEO'
 import ImageWithSkeleton from '@/components/ImageWithSkeleton'
 import { useReveal, useStaggerReveal } from '@/hooks/useReveal'
 import { IconArrowRight } from '@/components/icons'
@@ -71,11 +70,6 @@ export default function SobrePage() {
 
   return (
     <>
-      <SEO
-        title="Sobre Nós — Escola Tempo de Aprender em Escada, PE"
-        description="Nossa história, missão, visão e valores. Com mais de 20 anos de tradição em Escada, PE, a Tempo de Aprender oferece educação de excelência."
-        keywords="escola tempo de aprender, escola infantil Escada PE, ensino fundamental Escada PE, história escola tempo de aprender, sobre tempo de aprender"
-      />
       <PageHero
         title="Sobre a Escola"
         subtitle="Conheça a história, a missão e os valores que fazem da Tempo de Aprender referência em educação infantil em Escada-PE."

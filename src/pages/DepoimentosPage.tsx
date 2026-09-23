@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 import PageHero from '@/components/PageHero'
 import Testimonials from '@/components/Testimonials'
-import SEO from '@/components/SEO'
 import { useReveal, useStaggerReveal } from '@/hooks/useReveal'
 import { IconArrowRight, IconHeart, IconUsers, IconStar } from '@/components/icons'
 
@@ -17,11 +16,6 @@ export default function DepoimentosPage() {
 
   return (
     <>
-      <SEO
-        title="Depoimentos das Famílias — Escola Tempo de Aprender"
-        description="Veja o que dizem as famílias que confiam na Escola Tempo de Aprender em Escada, PE. Mais de 20 anos de educação de excelência e afeto."
-        keywords="depoimentos tempo de aprender, opiniões escola Escada PE, avaliações escola infantil Escada, escola tempo de aprender depoimentos"
-      />
       <PageHero
         title="Depoimentos"
         subtitle="Veja o que as famílias que confiam na Tempo de Aprender têm a dizer sobre a experiência dos seus filhos."

@@ -3,44 +3,63 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
-    <!-- Primary Meta Tags -->
-    <title>Tempo de Aprender — Escola Infantil e Ensino Fundamental em Escada, PE</title>
-    <meta name="title" content="Tempo de Aprender — Escola Infantil e Ensino Fundamental em Escada, PE" />
-    <meta name="description" content="Escola Tempo de Aprender em Escada, PE. Matrículas abertas para Educação Infantil e Ensino Fundamental. Metodologia ativa, afeto e excelência no ensino." />
-    <meta name="keywords" content="escola infantil em Escada PE, matrícula fundamental Escada, escola tempo de aprender, educação infantil Escada PE, ensino fundamental Escada" />
-    <meta name="author" content="Tempo de Aprender" />
-    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#1B52AE" />
 
-    <!-- Open Graph / Facebook / WhatsApp -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://escolatempodeaprender.com.br/" />
-    <meta property="og:title" content="Tempo de Aprender — Escola Infantil e Ensino Fundamental em Escada, PE" />
-    <meta property="og:description" content="Escola Tempo de Aprender em Escada, PE. Matrículas abertas para Educação Infantil e Ensino Fundamental. Metodologia ativa, afeto e excelência no ensino." />
-    <meta property="og:image" content="https://escolatempodeaprender.com.br/og-image.jpg" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+    <!-- Tags por rota: substituídas no build por scripts/prerender.mjs -->
+    <!--head-meta-->
+    <title>Escola Tempo de Aprender — Educação Infantil e Fundamental I em Escada, PE</title>
+    <meta name="description" content="Escola Tempo de Aprender em Escada-PE: Educação Infantil e Ensino Fundamental I com metodologias ativas, afeto e mais de 20 anos de tradição. Matrículas abertas." />
+    <!--/head-meta-->
 
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://escolatempodeaprender.com.br/" />
-    <meta property="twitter:title" content="Tempo de Aprender — Escola Infantil e Ensino Fundamental em Escada, PE" />
-    <meta property="twitter:description" content="Escola Tempo de Aprender em Escada, PE. Matrículas abertas para Educação Infantil e Ensino Fundamental. Metodologia ativa, afeto e excelência no ensino." />
-    <meta property="twitter:image" content="https://escolatempodeaprender.com.br/og-image.jpg" />
-
-    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-    <!-- Preload modal banner -->
-    <link rel="preload" as="image" href="/banner-set-amarelo.webp" type="image/webp" />
-
-    <!-- Google Fonts: Inter + Fredoka + Caveat -->
+    <!-- Google Fonts: Inter (variável) + Fredoka + Caveat -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Fredoka:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Fredoka:wght@400..700&family=Inter:wght@400..900&display=swap"
       rel="stylesheet"
     />
+
+    <!-- Dados estruturados: escola local (Google Search / Maps) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": ["School", "Preschool", "ElementarySchool"],
+        "@id": "https://www.escolatempodeaprender.com.br/#escola",
+        "name": "Escola Tempo de Aprender",
+        "url": "https://www.escolatempodeaprender.com.br/",
+        "logo": "https://www.escolatempodeaprender.com.br/apple-touch-icon.png",
+        "image": "https://www.escolatempodeaprender.com.br/og-image.jpg",
+        "description": "Escola de Educação Infantil e Ensino Fundamental I em Escada-PE, com metodologias ativas e mais de 20 anos de tradição.",
+        "foundingDate": "2003",
+        "telephone": "+55-81-9112-1015",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Avenida Paulo Leite, 485",
+          "addressLocality": "Escada",
+          "addressRegion": "PE",
+          "addressCountry": "BR"
+        },
+        "areaServed": { "@type": "City", "name": "Escada" },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": "07:00",
+            "closes": "17:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Saturday",
+            "opens": "08:00",
+            "closes": "12:00"
+          }
+        ],
+        "sameAs": ["https://www.instagram.com/escolatempodeaprender24/"]
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>

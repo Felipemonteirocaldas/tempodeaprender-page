@@ -2,18 +2,17 @@ import { Link } from 'react-router-dom'
 import PageHero from '@/components/PageHero'
 import { IconArrowRight } from '@/components/icons'
 import ImageWithSkeleton from '@/components/ImageWithSkeleton'
-import SEO from '@/components/SEO'
 import { useReveal, useStaggerReveal } from '@/hooks/useReveal'
 
 // Array of images for the masonry grid
 const GALLERY_IMAGES = [
-  { src: '/galeria/SJ01.jpeg', alt: 'Momento na escola 1' },
-  { src: '/galeria/SJ02.jpeg', alt: 'Momento na escola 2' },
-  { src: '/galeria/SJ03.jpeg', alt: 'Momento na escola 3' },
-  { src: '/galeria/SJ04.jpeg', alt: 'Momento na escola 4' },
-  { src: '/galeria/SJ05.jpeg', alt: 'Momento na escola 5' },
-  { src: '/galeria/SJ06.jpeg', alt: 'Momento na escola 6' },
-  { src: '/galeria/SJ07.jpeg', alt: 'Momento na escola 7' },
+  { id: 'SJ01', alt: 'Momento na escola 1' },
+  { id: 'SJ02', alt: 'Momento na escola 2' },
+  { id: 'SJ03', alt: 'Momento na escola 3' },
+  { id: 'SJ04', alt: 'Momento na escola 4' },
+  { id: 'SJ05', alt: 'Momento na escola 5' },
+  { id: 'SJ06', alt: 'Momento na escola 6' },
+  { id: 'SJ07', alt: 'Momento na escola 7' },
 ]
 
 export default function GaleriaPage() {
@@ -22,11 +21,6 @@ export default function GaleriaPage() {
 
   return (
     <>
-      <SEO
-        title="Galeria de Fotos — Escola Tempo de Aprender em Escada, PE"
-        description="Veja fotos da estrutura, das turmas e das atividades realizadas na Escola Tempo de Aprender em Escada, PE."
-        keywords="fotos escola tempo de aprender, galeria escola infantil Escada PE, estrutura escola Escada PE"
-      />
       <PageHero
         title="Galeria de Fotos"
         subtitle="Conheça nossa estrutura e confira os melhores momentos dos nossos alunos."
@@ -47,7 +41,9 @@ export default function GaleriaPage() {
               >
                 <div className="absolute inset-0 bg-brand-navy/0 group-hover:bg-brand-navy/20 transition-colors z-10 duration-300 pointer-events-none" />
                 <ImageWithSkeleton
-                  src={img.src}
+                  src={`/galeria/${img.id}.webp`}
+                  srcSet={`/galeria/${img.id}-640.webp 640w, /galeria/${img.id}.webp 900w`}
+                  sizes="(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw"
                   alt={img.alt}
                   className="w-full h-auto object-cover transform transition-transform duration-700 group-hover:scale-105"
                   wrapperClassName="w-full h-full"

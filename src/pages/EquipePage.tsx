@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
 import PageHero from '@/components/PageHero'
-import SEO from '@/components/SEO'
 import { IconArrowRight, IconHeart } from '@/components/icons'
 
 /* ─── Types ─── */
@@ -173,11 +172,6 @@ function DirectorCard({ member }: { member: StaffMember }) {
 export default function EquipePage() {
   return (
     <>
-      <SEO
-        title="Nossa Equipe — Escola Tempo de Aprender em Escada, PE"
-        description="Conheça os professores, coordenação e a diretora da escola Tempo de Aprender em Escada, PE. Educadores qualificados que ensinam com amor."
-        keywords="professores tempo de aprender, equipe escolar Escada PE, diretora tempo de aprender, pedagogos Escada"
-      />
       <PageHero
         title="Nossa Equipe"
         subtitle="Conheça os profissionais dedicados que fazem da Tempo de Aprender uma escola especial. Cada membro da nossa equipe contribui com amor e profissionalismo para o crescimento dos nossos alunos."

@@ -1,66 +1,58 @@
 import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
+import { SITE_URL, getPageMeta } from '@/seo'
 
-interface SEOProps {
-  title: string
-  description: string
-  keywords?: string
-  ogType?: string
-  ogImage?: string
-}
-
-export default function SEO({
-  title,
-  description,
-  keywords,
-  ogType = 'website',
-  ogImage = '/og-image.jpg' // Default OG image path
-}: SEOProps) {
-  const location = useLocation()
-  const siteUrl = 'https://escolatempodeaprender.com.br'
-  const currentUrl = `${siteUrl}${location.pathname}`
+/**
+ * Mantém title, description, canonical e Open Graph sincronizados com a rota
+ * durante a navegação no cliente. O HTML inicial de cada rota já sai com essas
+ * tags da pré-renderização (scripts/prerender.mjs).
+ */
+export default function SEO() {
+  const { pathname } = useLocation()
 
   useEffect(() => {
-    // 1. Update Document Title
-    document.title = title
+    const meta = getPageMeta(pathname)
+    const url = `${SITE_URL}${pathname}`
 
-    // Helper to update or create a meta tag
-    const updateOrCreateMeta = (nameOrProperty: string, content: string, isProperty = false) => {
-      const attribute = isProperty ? 'property' : 'name'
-      let element = document.head.querySelector(`meta[${attribute}="${nameOrProperty}"]`)
-      if (!element) {
-        element = document.createElement('meta')
-        element.setAttribute(attribute, nameOrProperty)
-        document.head.appendChild(element)
+    document.title = meta.title
+
+    const setMeta = (attr: 'name' | 'property', key: string, content: string) => {
+      let el = document.head.querySelector<HTMLMetaElement>(`meta[${attr}="${key}"]`)
+      if (!el) {
+        el = document.createElement('meta')
+        el.setAttribute(attr, key)
+        document.head.appendChild(el)
       }
-      element.setAttribute('content', content)
+      el.content = content
     }
 
-    // 2. Standard Meta Tags
-    updateOrCreateMeta('description', description)
-    if (keywords) {
-      updateOrCreateMeta('keywords', keywords)
+    setMeta('name', 'description', meta.description)
+    setMeta('property', 'og:title', meta.title)
+    setMeta('property', 'og:description', meta.description)
+    setMeta('property', 'og:url', url)
+    setMeta('name', 'twitter:title', meta.title)
+    setMeta('name', 'twitter:description', meta.description)
+
+    let canonical = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]')
+    let robots = document.head.querySelector<HTMLMetaElement>('meta[name="robots"]')
+    if (meta.noindex) {
+      canonical?.remove()
+      if (!robots) {
+        robots = document.createElement('meta')
+        robots.name = 'robots'
+        document.head.appendChild(robots)
+      }
+      robots.content = 'noindex, follow'
+    } else {
+      robots?.remove()
+      if (!canonical) {
+        canonical = document.createElement('link')
+        canonical.rel = 'canonical'
+        document.head.appendChild(canonical)
+      }
+      canonical.href = url
     }
-
-    // 3. Open Graph (Facebook / WhatsApp / Instagram previews)
-    updateOrCreateMeta('og:title', title, true)
-    updateOrCreateMeta('og:description', description, true)
-    updateOrCreateMeta('og:url', currentUrl, true)
-    updateOrCreateMeta('og:type', ogType, true)
-
-    // Resolve absolute path for ogImage
-    const absoluteOgImage = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`
-    updateOrCreateMeta('og:image', absoluteOgImage, true)
-    updateOrCreateMeta('og:image:width', '1200', true)
-    updateOrCreateMeta('og:image:height', '630', true)
-
-    // 4. Twitter Card Tags
-    updateOrCreateMeta('twitter:card', 'summary_large_image')
-    updateOrCreateMeta('twitter:title', title)
-    updateOrCreateMeta('twitter:description', description)
-    updateOrCreateMeta('twitter:image', absoluteOgImage)
-
-  }, [title, description, keywords, ogType, ogImage, currentUrl])
+  }, [pathname])
 
   return null
 }

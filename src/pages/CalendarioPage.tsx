@@ -1,5 +1,4 @@
 import PageHero from '@/components/PageHero'
-import SEO from '@/components/SEO'
 import { IconCalendar } from '@/components/icons'
 
 interface Event {
@@ -120,10 +119,6 @@ const TYPE_LABELS = {
 export default function CalendarioPage() {
   return (
     <>
-      <SEO
-        title="Calendário Escolar — Escola Tempo de Aprender"
-        description="Fique por dentro das datas mais importantes, feriados e eventos escolares do ano letivo da Escola Tempo de Aprender em Escada, PE."
-      />
       <PageHero
         title="Calendário 2026"
         subtitle="Confira todas as datas importantes, feriados e eventos escolares da Tempo de Aprender."

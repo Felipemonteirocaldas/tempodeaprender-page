@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { IconPhone, IconMail, IconPin } from './icons'
+import { IconPhone, IconInstagram, IconPin } from './icons'
 import SmilingClock from './SmilingClock'
 
 interface NavSection { title: string; links: { label: string; to: string }[] }
@@ -10,7 +10,8 @@ const NAV_SECTIONS: NavSection[] = [
     title: 'Escola', links: [
       { label: 'Sobre nós', to: '/sobre' },
       { label: 'Nossa Equipe', to: '/equipe' },
-      { label: 'Diferenciais', to: '/diferenciais' },
+      { label: 'Galeria', to: '/galeria' },
+      { label: 'Calendário', to: '/calendario' },
       { label: 'Depoimentos', to: '/depoimentos' },
       { label: 'Matrículas 2026', to: '/contato' },
     ]
@@ -102,7 +103,7 @@ export default function Footer() {
               </li>
               <li>
                 <a href="https://www.instagram.com/escolatempodeaprender24/" target="_blank" rel="noopener noreferrer" className="tap-target flex items-start gap-2 text-sm text-white/90 hover:text-brand-sky-pale transition-colors" aria-label="Instagram: @escolatempodeaprender24">
-                  <IconMail className="w-4 h-4 flex-shrink-0 mt-0.5" /> @escolatempodeaprender24
+                  <IconInstagram className="w-4 h-4 flex-shrink-0 mt-0.5" /> @escolatempodeaprender24
                 </a>
               </li>
               <li>
@@ -124,7 +125,7 @@ export default function Footer() {
       {/* Barra inferior */}
       <div className="border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-white/70">
-          <p className="text-center md:text-left">&copy; {new Date().getFullYear()} Escola Tempo de Aprender. Todos os direitos reservados.</p>
+          <p className="text-center md:text-left" suppressHydrationWarning>&copy; {new Date().getFullYear()} Escola Tempo de Aprender. Todos os direitos reservados.</p>
           <div className="flex flex-col md:flex-row items-center gap-2 md:gap-6">
             <p>Escada — Pernambuco</p>
             <p className="flex items-center gap-1.5 opacity-80 hover:opacity-100 transition-opacity">

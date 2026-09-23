@@ -161,7 +161,7 @@ export default function Header() {
           aria-label="Menu móvel"
           className={[
             'md:hidden overflow-hidden transition-all duration-300 ease-in-out',
-            menuOpen ? 'max-h-[450px] opacity-100' : 'max-h-0 opacity-0',
+            menuOpen ? 'max-h-[450px] opacity-100 visible' : 'max-h-0 opacity-0 invisible',
             'bg-white/95 backdrop-blur-md border-t border-brand-sky-light',
           ].join(' ')}
         >
